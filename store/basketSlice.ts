@@ -3,7 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 
 export interface CounterState {
-	items: { id: string }[];
+	items: { id: string; price: number }[];
 }
 
 const initialState: CounterState = {
@@ -48,5 +48,8 @@ export const selectBasketItemsWithId = (
 	state: { basket: CounterState },
 	id: string
 ) => state.basket.items.filter(item => item.id === id);
+
+export const selectBasketTotal = (state: { basket: CounterState }) =>
+	state.basket.items.reduce((total, item) => (total += item.price), 0);
 
 export default basketSlice.reducer;
