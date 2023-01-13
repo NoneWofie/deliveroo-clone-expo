@@ -1,6 +1,6 @@
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import {
 	ChevronRightIcon,
@@ -11,30 +11,50 @@ import {
 	MapPinIcon,
 	StarIcon,
 } from "react-native-heroicons/solid";
+import { useDispatch } from "react-redux";
 import { RootStackParamList } from "../App";
 import BasketIcon from "../components/BasketIcon";
 import DishRow from "../components/DishRow";
 import { urlFor } from "../sanity";
+import { setRestaurant } from "../store/restaurantSlice";
 
 type routes = RouteProp<RootStackParamList, "Restaurant">;
 
 const RestaurantScreen = () => {
 	const navigation = useNavigation();
+	const dispatch = useDispatch();
 
 	const {
 		params: {
-			address,
-			dishes,
-			genre,
 			id,
 			imgUrl,
-			lat,
-			long,
-			rating,
-			short_description,
 			title,
+			rating,
+			genre,
+			address,
+			short_description,
+			dishes,
+			long,
+			lat,
 		},
 	} = useRoute<routes>();
+
+	useEffect(() => {
+		dispatch(
+			setRestaurant({
+				id,
+				imgUrl,
+				title,
+				rating,
+				genre,
+				address,
+				short_description,
+				dishes,
+				long,
+				lat,
+			})
+		);
+	}, [dispatch]);
 
 	useLayoutEffect(() => {
 		navigation.setOptions({ headerShown: false });

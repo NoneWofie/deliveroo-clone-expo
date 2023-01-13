@@ -43,16 +43,16 @@ const RestaurantCard: React.FC<Props> = ({
 			className="bg-white mr-3 shadow"
 			onPress={() =>
 				navigation.navigate("Restaurant", {
-					address,
-					dishes,
-					genre,
 					id,
 					imgUrl,
-					lat,
-					long,
-					rating,
-					short_description,
 					title,
+					rating,
+					genre,
+					address,
+					short_description,
+					dishes,
+					long,
+					lat,
 				})
 			}
 		>

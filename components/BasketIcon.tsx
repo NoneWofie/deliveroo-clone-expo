@@ -15,6 +15,10 @@ const BasketIcon = () => {
 	const navigation = useNavigation<NavigatorProps>();
 	const basketTotal = useSelector(selectBasketTotal);
 
+	if (items.length === 0) {
+		return null;
+	}
+
 	return (
 		<View className="absolute bottom-10 w-full z-50">
 			<TouchableOpacity
