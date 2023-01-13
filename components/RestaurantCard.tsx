@@ -2,6 +2,9 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import { StarIcon } from "react-native-heroicons/solid";
 import { MapPinIcon } from "react-native-heroicons/outline";
 import { urlFor } from "../sanity";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../App";
 
 interface Props {
 	id: number;
@@ -16,6 +19,11 @@ interface Props {
 	lat: number;
 }
 
+type NavigatorProps = NativeStackNavigationProp<
+	RootStackParamList,
+	"Restaurant"
+>;
+
 const RestaurantCard: React.FC<Props> = ({
 	address,
 	dishes,
@@ -28,8 +36,26 @@ const RestaurantCard: React.FC<Props> = ({
 	short_description,
 	title,
 }) => {
+	const navigation = useNavigation<NavigatorProps>();
+
 	return (
-		<TouchableOpacity className="bg-white mr-3 shadow">
+		<TouchableOpacity
+			className="bg-white mr-3 shadow"
+			onPress={() =>
+				navigation.navigate("Restaurant", {
+					address,
+					dishes,
+					genre,
+					id,
+					imgUrl,
+					lat,
+					long,
+					rating,
+					short_description,
+					title,
+				})
+			}
+		>
 			<Image
 				source={{
 					uri: urlFor(imgUrl).url(),
