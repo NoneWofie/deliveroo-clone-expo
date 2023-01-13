@@ -20,9 +20,12 @@ import { XCircleIcon } from "react-native-heroicons/solid";
 import { urlFor } from "../sanity";
 
 import Currency from "react-currency-formatter";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../App";
 
+type NavigatorProps = NativeStackNavigationProp<RootStackParamList, "Basket">;
 const BasketScreen = () => {
-	const navigation = useNavigation();
+	const navigation = useNavigation<NavigatorProps>();
 	const restaurant = useSelector(selectRestaurant);
 	const items = useSelector(selectBasketItems);
 	const basketTotal = useSelector(selectBasketTotal);
@@ -140,7 +143,12 @@ const BasketScreen = () => {
 						</Text>
 					</View>
 
-					<TouchableOpacity className="rounded-lg bg-[#00ccbb] p-4">
+					<TouchableOpacity
+						className="rounded-lg bg-[#00ccbb] p-4"
+						onPress={() =>
+							navigation.navigate("PreparingOrderScreen")
+						}
+					>
 						<Text className="text-center text-white text-lg font-bold">
 							Place Order
 						</Text>
